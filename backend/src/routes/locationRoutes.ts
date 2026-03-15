@@ -1,13 +1,16 @@
 import express from "express";
+import { authMiddleware } from "../middleware/authMiddleware.js";
+import { allLocations, getLocationsMeta, getSingleLocation } from "../controllers/locationController.js";
 
-const router = express.Router()
+export const router = express.Router()
 
-router.get("/", (req, res) => {
-    res.json({ message: "hello" });
-});
+// router.use(authMiddleware);
 
-router.get("/hello", (req, res) => {
-    res.json({ message: "hello" });
-});
+// gets all spots
+router.get("/", allLocations);
+
+router.get("/meta", getLocationsMeta);
+
+router.get("/:id", getSingleLocation);
 
 export default router;

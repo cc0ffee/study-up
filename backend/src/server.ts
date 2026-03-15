@@ -1,8 +1,8 @@
 import express from "express"
 import cors from "cors";
-import spotRoutes from "./routes/locationRoutes.ts";
+import locationRoutes from './routes/locationRoutes.js';
 import { config } from "dotenv";
-import {connectDB, disconnectDB} from "./config/db.ts"
+import {connectDB, disconnectDB} from "./config/db.js";
 
 config();
 connectDB();
@@ -10,10 +10,12 @@ connectDB();
 const app = express();
 const PORT = 5001;
 
-app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded( {extended: true }));
 
-app.use("/spots", spotRoutes);
+app.use(cors());
+
+app.use("/spots", locationRoutes);
 
 const server = app.listen(PORT, () => {
     console.log(`Server running on PORT ${PORT}`);

@@ -1,23 +1,24 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient({
-    log: process.env.NODE_ENV === "development" 
-    ? ["query", "error", "warn"] 
-    : ["error"],
+export const prisma = new PrismaClient({
+    log: process.env.NODE_ENV === "development"
+        ? ["query", "error", "warn"]
+        : ["error"],
 });
 
-const connectDB = async () => {
+export const connectDB = async () => {
     try {
         await prisma.$connect();
-        console.log("Database connected!")
-    } catch (err:any) {
-        console.log(`Database connection error: ${err.message}`)
+        console.log("Prisma connected!");
+
+        const locationCount = await prisma.location.count();
+        console.log(`Location table accessible. Total locations: ${locationCount}`);
+    } catch (err: any) {
+        console.error(`Database connection error: ${err.message}`);
         process.exit(1);
     }
-}
+};
 
-const disconnectDB = async () => {
+export const disconnectDB = async () => {
     await prisma.$disconnect();
-}
-
-export {prisma, connectDB, disconnectDB};
+};
