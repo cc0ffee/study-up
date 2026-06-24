@@ -16,10 +16,13 @@ interface SidebarProps {
   onFilter: (k: FilterKey) => void
   activeId: number | null
   onSelect: (id: number) => void
+  collapsed: boolean
+  onToggleCollapse: () => void
 }
 
 export function Sidebar({
   spots, search, onSearch, activeFilter, onFilter, activeId, onSelect,
+  collapsed, onToggleCollapse,
 }: SidebarProps) {
   const activeRef = useRef<HTMLDivElement | null>(null)
 
@@ -28,7 +31,16 @@ export function Sidebar({
   }, [activeId])
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${collapsed ? 'sidebar--collapsed' : ''}`}>
+      <button
+        className="sidebar-toggle"
+        onClick={onToggleCollapse}
+        aria-expanded={!collapsed}
+      >
+        <span>{collapsed ? 'Search & list' : 'Hide list'}</span>
+        <span className="sidebar-toggle-icon">{collapsed ? '▾' : '▴'}</span>
+      </button>
+
       <div className="filters">
         <div className="filter-group">
           <label className="filter-label">Search</label>

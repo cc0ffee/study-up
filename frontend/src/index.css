@@ -78,6 +78,24 @@ html, body, #root {
   border-right: 1px solid var(--border);
   overflow: hidden;
 }
+.sidebar-toggle {
+  display: none; /* desktop: sidebar is always open */
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--surface);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 11px 16px;
+  cursor: pointer;
+}
+.sidebar-toggle-icon { color: var(--amber-dim); font-size: 11px; }
+
 .filters {
   padding: 14px 18px 12px;
   border-bottom: 1px solid var(--border);
@@ -171,9 +189,9 @@ html, body, #root {
   box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
 }
 .leaflet-popup-tip { background: var(--card) !important; }
-.leaflet-popup-content { margin: 12px 14px !important; font-size: 12px; }
-.leaflet-popup-content b { font-family: 'Playfair Display', serif; color: var(--white); font-size: 13px; }
-.leaflet-popup-content p { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.leaflet-popup-content { margin: 8px 10px !important; font-size: 11px; }
+.leaflet-popup-content b { font-family: 'Playfair Display', serif; color: var(--white); font-size: 12px; }
+.leaflet-popup-content p { font-size: 9px; color: var(--muted); margin-top: 2px; }
 .leaflet-control-zoom { border: 1px solid var(--border) !important; border-radius: 0 !important; }
 .leaflet-control-zoom a { background: var(--card) !important; color: var(--text) !important; border-color: var(--border) !important; }
 .leaflet-control-zoom a:hover { background: var(--surface) !important; color: var(--amber) !important; }
@@ -268,6 +286,13 @@ html, body, #root {
     border-bottom: 1px solid var(--border);
     max-height: 42vh;
   }
+
+  /* collapsible search + list to reclaim map space */
+  .sidebar-toggle { display: flex; }
+  .sidebar--collapsed { max-height: none; }
+  .sidebar--collapsed .filters,
+  .sidebar--collapsed .spot-list { display: none; }
+  .sidebar--collapsed .sidebar-toggle { border-bottom: none; }
 
   /* keep the map usable height when stacked */
   .map-wrapper { min-height: 320px; }

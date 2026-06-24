@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { Header }      from './components/Header'
 import { Sidebar }     from './components/Sidebar'
 import { MapView }     from './components/MapView'
@@ -14,8 +14,11 @@ export default function App() {
     activeSpot,
   } = useSpots()
 
+  const [collapsed, setCollapsed] = useState(false)
+
   const handleSelect = useCallback((id: number) => setActiveId(id), [setActiveId])
   const handleClose  = useCallback(() => setActiveId(null), [setActiveId])
+  const toggleSidebar = useCallback(() => setCollapsed(c => !c), [])
 
   if (loading) {
     return (
@@ -47,6 +50,8 @@ export default function App() {
           onFilter={setActiveFilter}
           activeId={activeId}
           onSelect={handleSelect}
+          collapsed={collapsed}
+          onToggleCollapse={toggleSidebar}
         />
         <div className="map-wrapper">
           <MapView
