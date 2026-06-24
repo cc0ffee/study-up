@@ -69,6 +69,28 @@ html, body, #root {
   padding: 3px 10px;
   border-radius: 2px;
 }
+.header-random {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  padding: 4px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.14s;
+}
+.header-random:hover:not(:disabled) {
+  border-color: var(--amber);
+  background: var(--amber-glow);
+}
+.header-random:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
 /* Sidebar */
 .sidebar {
@@ -247,7 +269,6 @@ html, body, #root {
 }
 .detail-link:hover { background: var(--amber-glow); }
 
-/* Loading */
 .loading-screen {
   height: 100vh; height: 100dvh; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
@@ -270,12 +291,9 @@ html, body, #root {
 .error-msg { font-size: 12px; color: var(--amber); letter-spacing: 0.15em; text-transform: uppercase; }
 .error-detail { font-size: 10px; color: var(--muted); margin-top: 4px; }
 
-/* Responsive — tablet & mobile */
 @media (max-width: 720px) {
-  /* allow the page itself to scroll if the keyboard shrinks the viewport */
   html, body, #root { overflow: auto; }
 
-  /* stack the sidebar above the map instead of side-by-side */
   .app-body {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -287,17 +305,14 @@ html, body, #root {
     max-height: 42vh;
   }
 
-  /* collapsible search + list to reclaim map space */
   .sidebar-toggle { display: flex; }
   .sidebar--collapsed { max-height: none; }
   .sidebar--collapsed .filters,
   .sidebar--collapsed .spot-list { display: none; }
   .sidebar--collapsed .sidebar-toggle { border-bottom: none; }
 
-  /* keep the map usable height when stacked */
   .map-wrapper { min-height: 320px; }
 
-  /* full-width bottom sheet instead of a floating card */
   .detail-panel {
     left: 12px;
     right: 12px;

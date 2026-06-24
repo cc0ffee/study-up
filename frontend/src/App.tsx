@@ -7,7 +7,7 @@ import { useSpots }    from './hooks/useSpots'
 
 export default function App() {
   const {
-    spots, filtered, loading, error,
+    filtered, loading, error,
     search, setSearch,
     activeFilter, setActiveFilter,
     activeId, setActiveId,
@@ -19,6 +19,12 @@ export default function App() {
   const handleSelect = useCallback((id: number) => setActiveId(id), [setActiveId])
   const handleClose  = useCallback(() => setActiveId(null), [setActiveId])
   const toggleSidebar = useCallback(() => setCollapsed(c => !c), [])
+
+  const handleRandom = useCallback(() => {
+    if (filtered.length === 0) return
+    const pick = filtered[Math.floor(Math.random() * filtered.length)]
+    setActiveId(pick.id)
+  }, [filtered, setActiveId])
 
   if (loading) {
     return (
@@ -40,7 +46,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <Header count={filtered.length} total={spots.length} />
+      <Header onRandom={handleRandom} disabled={filtered.length === 0} />
       <div className="app-body">
         <Sidebar
           spots={filtered}

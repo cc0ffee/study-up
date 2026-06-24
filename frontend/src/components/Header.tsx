@@ -1,18 +1,23 @@
 interface HeaderProps {
-  count: number
-  total: number
+  onRandom: () => void
+  disabled: boolean
 }
 
-export function Header({ count, total }: HeaderProps) {
+export function Header({ onRandom, disabled }: HeaderProps) {
   return (
     <header className="header">
       <h1 className="header-title">
         study<em>up</em>
       </h1>
       <span className="header-tagline">Chicago Study Spots</span>
-      <div className="header-badge">
-        {count !== total ? `${count} / ${total}` : count} spots
-      </div>
+      <button
+        className="header-random"
+        onClick={onRandom}
+        disabled={disabled}
+        title="Pick a random spot from the current list"
+      >
+        Random Spot!
+      </button>
     </header>
   )
 }
